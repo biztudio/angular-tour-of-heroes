@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Hero } from '../hero';
 
 import { HeroService } from '../hero.service';
+import { MessageService } from '../message.service';
 /* import { HEROES } from '../mock-heroes'; */
 
 @Component({
@@ -21,7 +22,7 @@ export class HeroesComponent implements OnInit {
   // 当 Angular 创建 HeroesComponent 时，依赖注入系统就会把这个 heroService 参数设置为 HeroService 的"单例对象"。
   // 让构造函数保持简单，只做初始化操作，比如把构造函数的参数赋值给属性。
   // 构造函数不应该做任何事。 它当然不应该调用某个函数来向远端服务（比如真实的数据服务）发起 HTTP 请求。
-  constructor(private heroService: HeroService) { }
+  constructor(private heroService: HeroService, private messageService: MessageService) { }
 
   // 一个生命周期钩子，Angular 在创建完组件后很快就会调用 ngOnInit()。
   // 这里是放置初始化逻辑的好地方。
@@ -40,6 +41,7 @@ export class HeroesComponent implements OnInit {
 
   onSelect(hero: Hero): void {
     this.selectedHero = hero;
+    this.messageService.add(`HeroService: Selected hero ${hero.name} id=${hero.id}`);
   }
 
 }
