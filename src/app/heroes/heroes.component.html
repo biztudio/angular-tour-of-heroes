@@ -1,0 +1,19 @@
+<div *ngIf="selectedHero">
+    <h2>{{selectedHero.name | uppercase}} Details</h2>
+    <div><span>id: </span>{{selectedHero.id}}</div>
+    <div><span>name: </span>{{selectedHero.name}}</div>
+
+    <div >
+    <label>name:
+        <input [(ngModel)]="selectedHero.name" placeholder="name"/>
+    </label>
+    </div>
+</div>
+
+<ul class="heroes">
+  <li *ngFor="let heroItem of heroes"  (click)="onSelect(heroItem)"
+    [class.selected]="heroItem === selectedHero"
+  > <!-- 根据条件设定样式 class -->
+    <span class="badge">{{heroItem.id}}</span> {{heroItem.name}}
+  </li>
+</ul>
