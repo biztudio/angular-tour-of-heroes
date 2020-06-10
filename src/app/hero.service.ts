@@ -33,4 +33,9 @@ export class HeroService {
     // 如果从真实的服务器请求，HttpClient.get<Hero[]>() 也同样返回一个 Observable<Hero[]>
     return of(HEROES);
   }
+
+  getHeroAsync(id: number): Observable<Hero> {
+    this.messageService.add(`HeroService: fetched hero id=${id}`);
+    return of(HEROES.find(h => h.id === id));
+  }
 }
