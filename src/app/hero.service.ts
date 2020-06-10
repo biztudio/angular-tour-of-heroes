@@ -67,6 +67,22 @@ export class HeroService {
     );
   }
 
+  // 使用 map 的一个例子
+  // 其它 API 可能在返回对象中深埋着你想要的数据。 可借助 RxJS 的 map() 操作符对 Observable 的结果进行处理，以便把这些数据挖掘出来。
+  /** GET hero by id. Return `undefined` when id not found */
+  getHeroNo404<Data>(id: number): Observable<Hero> {
+    const url = `${this.heroesUrl}/?id=${id}`;
+    return this.http.get<Hero[]>(url)
+      .pipe(
+        map(heroes => heroes[0]), // returns a {0|1} element array
+        tap(h => {
+          const outcome = h ? `fetched` : `did not find`;
+          this.log(`${outcome} hero id=${id}`);
+        }),
+        catchError(this.handleError<Hero>(`getHero id=${id}`))
+      );
+  }
+
   /**
    * Handle Http operation that failed.
    * Let the app continue.
